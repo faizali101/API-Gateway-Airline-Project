@@ -1,8 +1,8 @@
-const error = {
+const success = {
     success: true,
-    message: 'Sucessfully created the request!',
+    message: 'Successfully created the request!',
     data: {},
     error: {}
 }
 
-module.exports = { error }
+module.exports = success
