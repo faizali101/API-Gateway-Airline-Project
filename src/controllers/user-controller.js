@@ -1,6 +1,6 @@
 const { UserService } = require('../services');
 const { StatusCodes } = require('http-status-codes');
-const {successresponse, errorresponse } = require('../utils');
+const {successresponse, errorresponse } = require('../utils/common');
 
 /*
 POST : /users
@@ -13,11 +13,34 @@ async function signup(req, res) {
             password: req.body.password
         });
         successresponse.data = user;
-        return res.status(StatusCodes.CREATED).json({successresponse});
+        return res
+                  .status(StatusCodes.CREATED)
+                  .json({successresponse});
     } catch (error) {
         errorresponse.error = error;
-        return res.status(error.statusCode).json(errorresponse)
+        return res
+                  .status(error.statusCode)
+                  .json(errorresponse)
     }
 }
 
-module.exports = {signup}
+async function signin (req, res) {
+    try {
+         const user = await UserService.signin({
+            email : req.body.email,
+            password: req.body.password
+         })
+        successresponse.data = user;
+        return res 
+                  .status(StatusCodes.ACCEPTED)
+                  .json(successresponse);
+    } catch (error) {
+         
+        console.log(error);
+        return res 
+        .status(error.statusCode)
+        .json(errorresponse)
+    }
+}
+
+module.exports = {signup, signin}
