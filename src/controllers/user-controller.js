@@ -12,15 +12,14 @@ async function signup(req, res) {
             email: req.body.email,
             password: req.body.password
         });
-        successresponse.data = user;
         return res
                   .status(StatusCodes.CREATED)
-                  .json({successresponse});
+                  .json(successresponse(user, 'Successfully signed up!'));
     } catch (error) {
-        errorresponse.error = error;
+        console.log(error);
         return res
-                  .status(error.statusCode)
-                  .json(errorresponse)
+                  .status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR)
+                  .json(errorresponse(error, error.explanation || error.message));
     }
 }
 
@@ -30,16 +29,14 @@ async function signin (req, res) {
             email : req.body.email,
             password: req.body.password
          })
-        successresponse.data = user;
-        return res 
+        return res
                   .status(StatusCodes.ACCEPTED)
-                  .json(successresponse);
+                  .json(successresponse(user, 'Successfully signed in!'));
     } catch (error) {
-         
         console.log(error);
-        return res 
-        .status(error.statusCode)
-        .json(errorresponse)
+        return res
+                  .status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR)
+                  .json(errorresponse(error, error.explanation || error.message));
     }
 }
 

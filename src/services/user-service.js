@@ -44,8 +44,28 @@ async function signin(data) {
     }
 }
 
+async function isAuthenticated(token) {
+    try {
+        if(!token) {
+            throw new AppError("IMISSING TOKEN.", StatusCodes.BAD_REQUEST)
+        }
+        const response = auth.verifyToken(token);
+        const user = await userRep.get(response.id);
+        if (!user) {
+            throw new AppError("NOT A USER.", StatusCodes.BAD_REQUEST)
 
+        }
+        return user.id;
+    } catch (error) {
+        if (error instanceof AppError) throw error;
+        if (error.name == 'JsonWebTokenError') {
+          throw new AppError('INVALID JWT TOKEN.', StatusCodes.BAD_REQUEST)
+        }
+        console.log(error);
+        throw new AppError('COULD NOT AUTHETICATE.', StatusCodes.INTERNAL_SERVER_ERROR)
+    }
+}
 
 module.exports = {
-    create, signin
+    create, signin, isAuthenticated
 }

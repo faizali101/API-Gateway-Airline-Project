@@ -1,8 +1,10 @@
-const error = {
-    success: false,
-    message: 'Something went wrong!',
-    data: {},
-    error: {}
+function errorResponse(error, message) {
+    return {
+        success: false,
+        message: message || 'Something went wrong!',
+        data: {},
+        error: error || {}
+    };
 }
 
-module.exports = error
+module.exports = errorResponse;
