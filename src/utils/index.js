@@ -1,4 +1,4 @@
-const { errorresponse, successresponse, auth } = require("./common");
+const { errorresponse, successresponse, auth, enums } = require("./common");
 const { AppError } = require("./errors");
 
 
@@ -6,5 +6,6 @@ module.exports = {
     errorresponse,
     successresponse,
     AppError,
-    auth
+    auth,
+    enums
 }
