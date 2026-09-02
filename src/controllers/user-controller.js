@@ -40,4 +40,21 @@ async function signin (req, res) {
     }
 }
 
-module.exports = {signup, signin}
+async function addRoles (req, res) {
+    try {
+         const user = await UserService.addRoles({
+            role : req.body.role,
+            id: req.body.id
+         })
+        return res
+                  .status(StatusCodes.ACCEPTED)
+                  .json(successresponse(user, 'Successfully added role'));
+    } catch (error) {
+        console.log(error);
+        return res
+                  .status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR)
+                  .json(errorresponse(error, error.explanation || error.message));
+    }
+}
+
+module.exports = {signup, signin, addRoles}

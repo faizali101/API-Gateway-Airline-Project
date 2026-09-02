@@ -9,5 +9,8 @@ router.post('/signup', AuthReq.validateAuthRequest, UserController.signup);
 
 router.post('/signin', AuthReq.validateAuthRequest, UserController.signin);
 
+router.post('/role',AuthReq.checkAuth, AuthReq.isAdmin, UserController.addRoles);
+// router.post('/role', UserController.addRoles);
+
 
 module.exports = router
