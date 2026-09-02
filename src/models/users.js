@@ -9,7 +9,7 @@ const serverConfig = require('../config/server-config');
 module.exports = (sequelize, DataTypes) => {
   class users extends Model {
     static associate(models) {
-      this.belongsToMany(models.Role, {through: 'User_Roles', as : 'role'})
+      this.belongsToMany(models.role, {through: 'User_Roles', as: 'roles'})
     }
   }
   users.init({

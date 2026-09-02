@@ -3,6 +3,7 @@ const rateLimit = require('express-rate-limit');
 const { ServerConfig } = require('./config');
 const apiRoutes = require('./routes');
 const app = express();
+const {user, role} = require('./routes');
 const limiter = rateLimit({
     windowMs: 2 *  60 * 100,
     max : 5
@@ -26,6 +27,8 @@ app.use('/api', apiRoutes);
 app.listen(ServerConfig.PORT, () => {
     console.log(`Successfully started the server on PORT : ${ServerConfig.PORT}`);
 });
+
+
 
 /**
  * reverse proxy // 

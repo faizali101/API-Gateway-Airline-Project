@@ -7,7 +7,7 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class role extends Model {
     static associate(models) {
-       this.belongsToMany(models.User, {through: 'User_Roles', as : 'role'})
+      this.belongsToMany(models.users, {through: 'User_Roles', as: 'users'})
     }
   }
   role.init({
